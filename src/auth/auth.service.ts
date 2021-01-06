@@ -22,4 +22,9 @@ export class AuthService {
     }
     return this.jwtService.sign({ uid: user.id });
   }
+
+  verifyToken(token: string): { uid: number } {
+    const res = this.jwtService.verify<{ uid: number }>(token);
+    return res;
+  }
 }
