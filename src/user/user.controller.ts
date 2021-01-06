@@ -7,14 +7,17 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { User } from 'src/entities/user.entity';
+import { AuthGuard } from 'src/guards/auth.guard';
 import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly service: UserService) {}
 
+  @UseGuards(AuthGuard)
   @Get(':id')
   findById(@Param('id', new ParseIntPipe()) id: number): Promise<User> {
     return this.service.findById(id);
